@@ -1,0 +1,64 @@
+.item-card {
+   border-radius: 15px;
+   
+}
+
+.item-card:hover {
+   transform: translateY(-5px);
+   transition: transform 0.3s ease; 
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+
+}
+
+.item-image {
+   width: 280px !important;      
+   height: 170px !important;
+   border-radius: 15px;
+   margin-bottom: 10px;
+   box-shadow: rgba(0, 0, 0, 0.2); 
+
+}
+
+.price-div {
+   margin-bottom: 20px;
+}
+
+.add-button {
+   width: 30px;
+   height: 30px;
+   border: 1px solid #1a1a1a;
+   background-color: white;
+   border-radius: 50%;
+}
+
+.add-button {
+   width: 30px;
+   height: 30px;
+   border: 1px solid #1a1a1a;
+   background-color: white;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   transition: all 0.2s ease;
+   color: #1a1a1a;
+   font-size: 16px;
+}
+
+/* Hover effect */
+.add-button:hover {
+   background-color: #1a1a1a;
+   color: white;
+   transform: scale(1.1);
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Active (pressed) effect */
+.add-button:active {
+   transform: scale(0.95);
+   background-color: #333;
+   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.itemsDep {
+   color: #1a1a1a;
+}

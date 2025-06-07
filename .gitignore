@@ -1,0 +1,3 @@
+# Ignore application.properties in backend
+backend/src/main/resources/application.properties
+

@@ -1,0 +1,12 @@
+#employee-card {
+   border-radius: 8px;
+}
+
+.fnt-clr {
+   color: #1a1a1a;
+
+}
+.no-shadow {
+  box-shadow: none !important;
+  border: 1px solid #dee2e6; /* Optional: adds a subtle border */
+}
