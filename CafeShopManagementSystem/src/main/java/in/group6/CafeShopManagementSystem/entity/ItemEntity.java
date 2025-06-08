@@ -36,6 +36,8 @@ public class ItemEntity {
     private String itemId;
 
     private String name;
+    private String newName;
+
     private BigDecimal price;
     private String description;
 
@@ -51,4 +53,5 @@ public class ItemEntity {
     @JoinColumn(name = "category_id", nullable = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     private CategoryEntity category;
+
 }

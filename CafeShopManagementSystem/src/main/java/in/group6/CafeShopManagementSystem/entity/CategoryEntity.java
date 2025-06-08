@@ -33,6 +33,9 @@ public class CategoryEntity {
 
     @Column(unique = true)
     private String name;
+
+    private String newName;
+
     private String description;
     private String imageUrl;
 

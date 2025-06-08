@@ -47,6 +47,37 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public CategoryResponse update(CategoryRequest request, MultipartFile file) throws IOException{
+        CategoryEntity existingCategory = categoryRepository.findByName(request.getName())
+                .orElseThrow(() -> new RuntimeException("Category name not found: " +request.getName()));
+
+        existingCategory.setName(request.getNewName());
+        existingCategory.setNewName(request.getNewName());
+        existingCategory.setDescription(request.getDescription());
+
+        if (file != null && !file.isEmpty()) {
+            String oldImageUrl = existingCategory.getImageUrl();
+            if (oldImageUrl != null) {
+                String oldFileName = oldImageUrl.substring(oldImageUrl.lastIndexOf("/") + 1);
+                Path oldFilePath = Paths.get("uploads").toAbsolutePath().normalize().resolve(oldFileName);
+                Files.deleteIfExists(oldFilePath);
+            }
+
+            String newFileName = UUID.randomUUID().toString() + "." + StringUtils.getFilenameExtension(file.getOriginalFilename());
+            Path uploadPath = Paths.get("uploads").toAbsolutePath().normalize();
+            Files.createDirectories(uploadPath);
+            Path targetLocation = uploadPath.resolve(newFileName);
+            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+            existingCategory.setImageUrl("http://localhost:8080/api/v1.0/uploads/" + newFileName);
+        }
+
+        categoryRepository.save(existingCategory);
+        return convertToResponse(existingCategory);
+
+    }
+
+
+    @Override
     public List<CategoryResponse> read() {
         return categoryRepository.findAll()
                 .stream()
@@ -70,14 +101,13 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.delete(existingCategory);
     }
 
-
-
     private CategoryResponse convertToResponse(CategoryEntity newCategory) {
         Integer itemsCount = itemRepository.countByCategoryId(newCategory.getId());
 
         return CategoryResponse.builder()
                 .categoryId(newCategory.getCategoryId())
                 .name(newCategory.getName())
+                .newName(newCategory.getName())
                 .description(newCategory.getDescription())
                 .imageUrl(newCategory.getImageUrl())
                 .createdAt(newCategory.getCreatedAt())
@@ -90,6 +120,7 @@ public class CategoryServiceImpl implements CategoryService {
         return CategoryEntity.builder()
                 .categoryId(UUID.randomUUID().toString())
                 .name(request.getName())
+                .newName(request.getName())
                 .description(request.getDescription())
                 .build();
     }

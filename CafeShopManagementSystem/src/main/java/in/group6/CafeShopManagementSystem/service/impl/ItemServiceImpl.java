@@ -39,6 +39,7 @@ public class ItemServiceImpl implements ItemService {
         Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
         String imageUrl = "http://localhost:8080/api/v1.0/uploads/"+fileName;
         ItemEntity newItem = convertToEntity(request);
+
         CategoryEntity existingCategory = categoryRepository.findByCategoryId(request.getCategoryId())
                 .orElseThrow(() -> new RuntimeException("Category not found for ID: " + request.getCategoryId()));
         newItem.setCategory(existingCategory);
@@ -47,10 +48,49 @@ public class ItemServiceImpl implements ItemService {
         return convertToResponse(newItem);
     }
 
+    @Override
+    public ItemResponse update(ItemRequest request, MultipartFile file) throws IOException {
+        // Find the existing item by name
+
+        ItemEntity existingItem = itemRepository.findByName(request.getName())
+                .orElseThrow(() -> new RuntimeException("Item name not found: " + request.getName()));
+
+        // Update basic fields
+        existingItem.setName(request.getNewName());
+        existingItem.setNewName(request.getNewName());
+        existingItem.setDescription(request.getDescription());
+        existingItem.setPrice(request.getPrice());
+
+        CategoryEntity existingCategory = categoryRepository.findByCategoryId(request.getCategoryId())
+                .orElseThrow(() -> new RuntimeException("Category not found for ID: " + request.getCategoryId()));
+        existingItem.setCategory(existingCategory);
+
+        if (file != null && !file.isEmpty()) {
+            String oldImageUrl = existingItem.getImageUrl();
+            if (oldImageUrl != null) {
+                String oldFileName = oldImageUrl.substring(oldImageUrl.lastIndexOf("/") + 1);
+                Path oldFilePath = Paths.get("uploads").toAbsolutePath().normalize().resolve(oldFileName);
+                Files.deleteIfExists(oldFilePath);
+            }
+
+            String newFileName = UUID.randomUUID().toString() + "." + StringUtils.getFilenameExtension(file.getOriginalFilename());
+            Path uploadPath = Paths.get("uploads").toAbsolutePath().normalize();
+            Files.createDirectories(uploadPath);
+            Path targetLocation = uploadPath.resolve(newFileName);
+            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+            existingItem.setImageUrl("http://localhost:8080/api/v1.0/uploads/" + newFileName);
+        }
+
+        // Save and return
+        existingItem = itemRepository.save(existingItem);
+        return convertToResponse(existingItem);
+    }
+
     private ItemResponse convertToResponse(ItemEntity newItem) {
         return ItemResponse.builder()
                 .itemId(newItem.getItemId())
                 .name(newItem.getName())
+                .newName(newItem.getName())
                 .description(newItem.getDescription())
                 .price(newItem.getPrice())
                 .imageUrl(newItem.getImageUrl())
@@ -65,6 +105,7 @@ public class ItemServiceImpl implements ItemService {
         return ItemEntity.builder()
                 .itemId(UUID.randomUUID().toString())
                 .name(request.getName())
+                .newName(request.getName())
                 .description(request.getDescription())
                 .price(request.getPrice())
                 .build();

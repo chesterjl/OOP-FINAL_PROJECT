@@ -11,6 +11,7 @@ public class CategoryResponse {
 
     private String categoryId;
     private String name;
+    private String newName;
     private String description;
     private Timestamp createdAt;
     private Timestamp updatedAt;

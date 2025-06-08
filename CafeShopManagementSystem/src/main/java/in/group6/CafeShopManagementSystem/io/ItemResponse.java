@@ -16,6 +16,7 @@ public class ItemResponse {
 
     private String itemId;
     private String name;
+    private String newName;
     private BigDecimal price;
     private String categoryId;
     private String description;

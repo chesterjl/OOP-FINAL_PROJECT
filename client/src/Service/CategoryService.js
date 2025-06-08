@@ -12,5 +12,7 @@ export const fetchCategories = async () => {
    return await axios.get("http://localhost:8080/api/v1.0/categories", {headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}});
 }
 
-
+export const updateCategory = async (category) => { 
+   return await axios.put("http://localhost:8080/api/v1.0/owner/update/category", category, {headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}}) 
+}
 

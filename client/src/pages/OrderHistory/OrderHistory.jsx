@@ -49,7 +49,7 @@ const OrderHistory = () => {
 
    return (
       <div className="orders-history-container">
-         <h2 className='mb-2 text-dark'>All Orders</h2>
+         <h2 className='mb-2 text-dark'>Orders History</h2>
          <div className="table-responsive">
             <table className='table table-striped table-hover'>
                <thead className='table-dark'>

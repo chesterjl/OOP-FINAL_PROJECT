@@ -10,4 +10,7 @@ public interface ItemRepository extends JpaRepository<ItemEntity, Long> {
     Optional<ItemEntity> findByItemId(String id);
 
     Integer countByCategoryId(Long id);
+
+    Optional<ItemEntity> findByName(String name);
+
 }

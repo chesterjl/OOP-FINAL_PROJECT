@@ -41,6 +41,19 @@ public class ItemController {
         }
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/owner/update/item")
+    public ItemResponse updateItem(@RequestPart("item") String itemString, @RequestPart(value = "file", required = false)  MultipartFile file) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ItemRequest itemRequest = null;
+        try {
+            itemRequest = objectMapper.readValue(itemString, ItemRequest.class);
+            return itemService.update(itemRequest, file);
+        } catch (JsonProcessingException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error occurred while processing the json");
+        }
+    }
+
     @GetMapping("/items")
     public List<ItemResponse> readItems() {
         return itemService.fetchItems();

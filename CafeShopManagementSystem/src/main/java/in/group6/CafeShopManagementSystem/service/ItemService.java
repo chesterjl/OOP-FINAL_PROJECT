@@ -15,4 +15,6 @@ public interface ItemService {
 
     void deleteItem(String itemId);
 
+    ItemResponse update(ItemRequest request, MultipartFile file) throws IOException;
+
 }

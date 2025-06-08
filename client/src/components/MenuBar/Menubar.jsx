@@ -52,11 +52,17 @@ const Menubar = () => {
                               <li className="nav-item">
                                  <Link className={`nav-link ${isActive('/employee') ? 'fw-bold text-warning' : ''}`} to="/employee">Staff</Link>
                               </li>
+                              <li className="nav-item">
+                                 <Link className={`nav-link ${isActive('/updateItem') ? 'fw-bold text-warning' : ''}`} to="/updateItem">Update Item</Link>
+                              </li>
+                              <li className="nav-item">
+                                 <Link className={`nav-link ${isActive('/updateCategory') ? 'fw-bold text-warning' : ''}`} to="/updateCategory">Update Category</Link>
+                              </li>
                            </>
                         )
                      }
                      <li className="nav-item">
-                        <Link className={`nav-link ${isActive('/orders') ? 'fw-bold text-warning' : ''}`} to="/orders">Order History</Link>
+                        <Link className={`nav-link ${isActive('/orders') ? 'fw-bold text-warning' : ''}`} to="/orders">History</Link>
                      </li>
                </ul>
                <ul className="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">

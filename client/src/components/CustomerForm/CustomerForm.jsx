@@ -4,6 +4,9 @@ const CustomerForm = ({ customerName, setCustomerName, orderType, setOrderType, 
    
    return (
       <div className="p-3" style={{color: '#1a1a1a'}}>
+         <h5>
+            Customer Information
+         </h5>
          <div className="mb-3">
             <div className="d-flex align-items-center gap-2">
                <label htmlFor="customerName" className="col-4">Customer Name</label>

@@ -9,10 +9,13 @@ const CartItems = () => {
       <div className="p-3 h-100 overflow-y-auto">
          {cartItems.length === 0 ? (
             <p className='font-clr'>
-               Your cart is empty. 
+               No brews queued up yet.
             </p>
          ) : (
             <div className="cart-items-list">
+               <h3 className='text-dark fw-bold'>
+                  Order Details
+               </h3>
                {cartItems.map((item, index) => (
                   <div key={index} className="cart-item mb-3 p-3 bg-white rounded">
                      <div>{item.imageUrl}</div>

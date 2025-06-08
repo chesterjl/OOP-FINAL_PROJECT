@@ -12,8 +12,12 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Builder
 public class ItemRequest {
+
     private String name;
+    private String newName;
     private BigDecimal price;
     private String categoryId;
     private String description;
+
+
 }

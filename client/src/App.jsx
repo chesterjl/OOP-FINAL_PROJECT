@@ -5,6 +5,8 @@ import Explore from "./pages/Explore/Explore";
 import ManageItems from "./pages/ManageItems/ManageItems";
 import ManageCategory from "./pages/ManageCategory/ManageCategory";
 import ManageEmployee from "./pages/ManageEmployee/ManageEmployee";
+import UpdateItem from "./pages/UpdateItem/UpdateItem";
+import UpdateCategory from "./pages/UpdateCategory/UpdateCategory.jsx";
 import { ToastContainer } from 'react-toastify';
 import Login from "./pages/Login/Login";
 import OrderHistory from "./pages/OrderHistory/OrderHistory";
@@ -52,7 +54,9 @@ const App = () => {
                 <Route path="/items" element={<ProtectedRoute element={<ManageItems />} allowedRoles={['ROLE_OWNER']}/>} />
                 <Route path="/category" element={<ProtectedRoute element={<ManageCategory />} allowedRoles={['ROLE_OWNER']}/>} />
                 <Route path="/employee" element={<ProtectedRoute element={<ManageEmployee />} allowedRoles={['ROLE_OWNER']}/>} />
-
+                <Route path="/updateItem" element={<ProtectedRoute element={<UpdateItem />} allowedRoles={['ROLE_OWNER']}/>} />
+                <Route path="/updateCategory" element={<ProtectedRoute element={<UpdateCategory />} allowedRoles={['ROLE_OWNER']}/>} />
+                    
                 <Route path="*" element={<NotFound/>} />
 
             </Routes>

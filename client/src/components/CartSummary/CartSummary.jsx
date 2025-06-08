@@ -18,6 +18,9 @@ const CartSummary = ({customerName, setCustomerName, orderType, setOrderType, mo
    const tax = totalAmount * 0.05;
    const grandTotal = totalAmount + tax;
    
+   const isTaxApply = orderType == "For Here" ? true : false;
+   console.log("orderType:", orderType, "isTaxApply:", isTaxApply);
+
    const clearAll = () => {
       setCustomerName("");
       setOrderType("");
@@ -85,11 +88,12 @@ const CartSummary = ({customerName, setCustomerName, orderType, setOrderType, mo
                <span className="fnt-clr">Subtotal</span>
                <span className='fnt-clr'>&#8369;{subTotal.toFixed(2)}</span>
             </div>
-            <div className="d-flex justify-content-between mb-2">
-               <span className="fnt-clr-tax">Tax (5%)</span>
-               <span className="fnt-clr-tax">&#8369;{tax.toFixed(2)}</span>
-            </div>
-
+            {isTaxApply && (
+               <div className="d-flex justify-content-between mb-2 fnt-clr-tax">
+                  <span><strong>Tax (5%):</strong></span>
+                  <span>&#8369;{tax.toFixed(2)}</span>
+               </div>
+            )}
             <hr className="custom-hr" />
             <div className="d-flex justify-content-between mb-4 fw-bold">
                <span className="fnt-clr">Total</span>

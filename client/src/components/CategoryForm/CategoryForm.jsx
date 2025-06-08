@@ -55,7 +55,6 @@ const CategoryForm = props => {
       }
    }
 
-
    return (
       <div className="mx-2 mt-2">
          <div className="row">
@@ -89,7 +88,7 @@ const CategoryForm = props => {
                            onChange={onChangeHandler}
                            value={data.description}>
                         </textarea>
-                        <button type="submit" disabled={loading} className="btn btn-dark mt-3 w-100">{loading ? "Loading..." : "Submit  "}</button>
+                        <button type="submit" disabled={loading} className="btn btn-dark mt-3 w-100">{loading ? "Loading..." : "Save"}</button>
                      </div>
                   </form>
                </div>

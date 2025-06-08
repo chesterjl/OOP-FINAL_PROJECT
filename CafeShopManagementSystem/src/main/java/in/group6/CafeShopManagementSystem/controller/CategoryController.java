@@ -40,6 +40,21 @@ public class CategoryController {
         }
     }
 
+    @PutMapping("/owner/update/category")
+    @ResponseStatus(HttpStatus.OK)
+    public CategoryResponse updateCategory(@RequestPart("category") String categoryString, @RequestPart("file") MultipartFile file) throws IOException     {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        CategoryRequest request = null;
+        try {
+            request = objectMapper.readValue(categoryString, CategoryRequest.class);
+
+            return categoryService.update(request, file);
+        } catch (JsonProcessingException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Exception occured while parsing the json: "+ e.getMessage());
+        }
+    }
+
     @GetMapping("/categories")
     public List<CategoryResponse> getAllCategories() {
         return categoryService.read();
