@@ -62,18 +62,7 @@ const ReceiptPopUp = ({orderDetails, onClose, onPrint}) => {
          <p>
             <strong>Payment Method:</strong> {orderDetails.paymentMethod}
          </p>
-         {
-            orderDetails.paymentMethod === "UPI" && (
-               <>
-                  <p>
-                     <strong>Razorpay Order ID:</strong> {orderDetails.razorpayOrderId}
-                  </p>
-                  <p>
-                     <strong>Razorpay Payment ID:</strong> {orderDetails.razorpayPaymentId}
-                  </p>
-               </>
-            ) 
-         }
+         
          <div className="d-flex justify-content-end gap-3 mt-4">
             <button className='btn btn-warning' onClick={onPrint}>Print Receipt</button>
             <button className='btn btn-danger' onClick={onClose}>Close</button>            

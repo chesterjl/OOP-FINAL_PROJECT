@@ -6,7 +6,6 @@ import in.group6.CafeShopManagementSystem.io.ItemRequest;
 import in.group6.CafeShopManagementSystem.io.ItemResponse;
 import in.group6.CafeShopManagementSystem.repository.CategoryRepository;
 import in.group6.CafeShopManagementSystem.repository.ItemRepository;
-import in.group6.CafeShopManagementSystem.service.FileUploadService;
 import in.group6.CafeShopManagementSystem.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,15 +27,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
 
-    private final FileUploadService fileUploadService;
-
     private final CategoryRepository categoryRepository;
     private final ItemRepository itemRepository;
 
     @Override
     public ItemResponse add(ItemRequest request, MultipartFile file) throws IOException {
-        //String imageUrl = fileUploadService.uploadFile(file);
-
         String fileName = UUID.randomUUID().toString()+"."+ StringUtils.getFilenameExtension(file.getOriginalFilename());
         Path uploadPath = Paths.get("uploads").toAbsolutePath().normalize();
         Files.createDirectories(uploadPath);
@@ -51,7 +45,6 @@ public class ItemServiceImpl implements ItemService {
         newItem.setImageUrl(imageUrl);
         newItem = itemRepository.save(newItem);
         return convertToResponse(newItem);
-
     }
 
     private ItemResponse convertToResponse(ItemEntity newItem) {
@@ -88,7 +81,6 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void deleteItem(String itemId) {
         ItemEntity existingItem = itemRepository.findByItemId(itemId).orElseThrow(() -> new RuntimeException("Item not found for ID: " + itemId));
-        //boolean isFileDeleted = fileUploadService.deleteFile(existingItem.getImageUrl());
         String imageUrl = existingItem.getImageUrl();
         String fileName = imageUrl.substring(imageUrl.lastIndexOf("/")+1);
         Path uploadPath = Paths.get("uploads").toAbsolutePath().normalize();
@@ -100,4 +92,5 @@ public class ItemServiceImpl implements ItemService {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Unable to delete the image");
         }
     }
+
 }

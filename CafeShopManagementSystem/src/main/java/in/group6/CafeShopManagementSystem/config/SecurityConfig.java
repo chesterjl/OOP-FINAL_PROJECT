@@ -37,7 +37,7 @@ public class SecurityConfig {
         http.cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/encode", "/login", "/uploads/**").permitAll()
-                .requestMatchers("/categories", "/items", "/orders", "/payments", "/dashboard").hasAnyRole("ADMIN", "USER", "OWNER", "EMPLOYEE")
+                .requestMatchers("/categories", "/items", "/orders", "/payments", "/dashboard").hasAnyRole("OWNER", "EMPLOYEE")
                 .requestMatchers("/owner/**").hasRole("OWNER")
                 .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

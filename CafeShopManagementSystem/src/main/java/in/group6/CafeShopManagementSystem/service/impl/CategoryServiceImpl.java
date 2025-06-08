@@ -6,7 +6,6 @@ import in.group6.CafeShopManagementSystem.io.CategoryResponse;
 import in.group6.CafeShopManagementSystem.repository.CategoryRepository;
 import in.group6.CafeShopManagementSystem.repository.ItemRepository;
 import in.group6.CafeShopManagementSystem.service.CategoryService;
-import in.group6.CafeShopManagementSystem.service.FileUploadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -27,13 +26,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    private final FileUploadService fileUploadService;
-
     private final ItemRepository itemRepository;
 
     @Override
     public CategoryResponse add(CategoryRequest request, MultipartFile file) {
-        //String imageUrl = fileUploadService.uploadFile(file);
         try {
             String fileName = UUID.randomUUID().toString()+"."+ StringUtils.getFilenameExtension(file.getOriginalFilename());
             Path uploadPath = Paths.get("uploads").toAbsolutePath().normalize();
@@ -62,7 +58,6 @@ public class CategoryServiceImpl implements CategoryService {
     public void delete(String categoryId) {
          CategoryEntity existingCategory = categoryRepository.findByCategoryId(categoryId)
                 .orElseThrow(() -> new RuntimeException("Category not found with ID: " + categoryId));
-//       fileUploadService.deleteFile(existingCategory.getImageUrl());
          String imageUrl = existingCategory.getImageUrl();
          String fileName = imageUrl.substring(imageUrl.lastIndexOf("/")+1);
          Path uploadPath = Paths.get("uploads").toAbsolutePath().normalize();
@@ -73,9 +68,9 @@ public class CategoryServiceImpl implements CategoryService {
              e.printStackTrace();
          }
         categoryRepository.delete(existingCategory);
-
-
     }
+
+
 
     private CategoryResponse convertToResponse(CategoryEntity newCategory) {
         Integer itemsCount = itemRepository.countByCategoryId(newCategory.getId());
@@ -97,7 +92,5 @@ public class CategoryServiceImpl implements CategoryService {
                 .name(request.getName())
                 .description(request.getDescription())
                 .build();
-
     }
-
 }

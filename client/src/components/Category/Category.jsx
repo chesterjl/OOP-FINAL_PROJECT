@@ -1,6 +1,6 @@
 import './Category.css';
 
-const Category = ({ categoryName, imageUrl, numberOfItems, isSelected, onClick }) => {
+const Category = ({ categoryName, isSelected, onClick }) => {
    return (
       <div
          className="d-flex align-items-center p-3 rounded gap-1 position-relative category-hover"

@@ -6,7 +6,6 @@ import in.group6.CafeShopManagementSystem.io.OrderRequest;
 import in.group6.CafeShopManagementSystem.io.OrderResponse;
 import in.group6.CafeShopManagementSystem.io.PaymentDetails;
 import in.group6.CafeShopManagementSystem.io.PaymentMethod;
-import in.group6.CafeShopManagementSystem.io.PaymentVerificationRequest;
 import in.group6.CafeShopManagementSystem.repository.OrderEntityRepository;
 import in.group6.CafeShopManagementSystem.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +27,7 @@ public class OrderServiceImpl implements OrderService {
         OrderEntity newOrder = convertToOrderEntity(request);
 
         PaymentDetails paymentDetails = new PaymentDetails();
-        paymentDetails.setStatus(newOrder.getPaymentMethod() == PaymentMethod.CASH ? PaymentDetails.PaymentStatus.COMPLETED
-                : PaymentDetails.PaymentStatus.PENDING);
+        paymentDetails.setStatus(PaymentDetails.PaymentStatus.COMPLETED);
         newOrder.setPaymentDetails(paymentDetails);
 
         List<OrderItemEntity> orderItems = request.getCartItems().stream()
@@ -107,26 +105,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderResponse verifyPayment(PaymentVerificationRequest request) {
-        OrderEntity existingOrder = orderEntityRepository.findByOrderId(request.getOrderId())
-                .orElseThrow(() -> new RuntimeException("Order not found"));
-
-        if (!verifyRazorpaySignature(request.getRazorpayOrderId(), request.getRazorpayPaymentId(), request.getRazorpaySignature())) {
-            throw new RuntimeException("Payment verification failed");
-
-        }
-
-        PaymentDetails paymentDetails =  existingOrder.getPaymentDetails();
-        paymentDetails.setRazorpayOrderId(request.getRazorpayOrderId());
-        paymentDetails.setRazorpayPaymentId(request.getRazorpayPaymentId());
-        paymentDetails.setRazorpaySignature(request.getRazorpaySignature());
-        paymentDetails.setStatus(PaymentDetails.PaymentStatus.COMPLETED);
-
-        existingOrder = orderEntityRepository.save(existingOrder);
-        return convertToResponse(existingOrder);
-    }
-
-    @Override
     public Double sumSalesByDate(LocalDate date) {
         return orderEntityRepository.sumSalesByDate(date);
     }
@@ -144,7 +122,4 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
     }
 
-    private boolean verifyRazorpaySignature(String razorpayOrderId, String razorpayPaymentId, String razorpaySignature) {
-        return true;
-    }
 }
