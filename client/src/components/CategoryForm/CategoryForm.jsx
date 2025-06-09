@@ -57,9 +57,15 @@ const CategoryForm = props => {
 
    return (
       <div className="mx-2 mt-2">
+         <h2 className="text-black mb-4">
+            Add New Category
+         </h2>
          <div className="row">
             <div className="card col-md-12 form-container no-shadow">
                <div className="card-body">
+                  <div className="mb-4">
+                     General Information
+                  </div>
                   <form onSubmit={onSubmitHandler}>
                      <div className="mb-3">
                         <label htmlFor="image" className="form-label">

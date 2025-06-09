@@ -134,4 +134,9 @@ public class ItemServiceImpl implements ItemService {
         }
     }
 
+    @Override
+    public Long getTotalItems() {
+        return itemRepository.totalItems();
+    }
+
 }

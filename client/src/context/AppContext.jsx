@@ -15,14 +15,26 @@ export const AppContextProvider = (props) => {
    }); 
    const [cartItems, setCartItems] = useState([]); 
       
-   const addToCart = (item) => { 
+   const addToCart = (item) => {
+      const fullItem = itemsData.find(i => i.itemId === item.itemId);
+
       const existingItem = cartItems.find(cartItem => cartItem.name === item.name);
+
       if (existingItem) {
-         setCartItems(cartItems.map(cartItem => 
-            cartItem.name === item.name ? {  ...cartItem, quantity: cartItem.quantity + 1} : cartItem
+         setCartItems(cartItems.map(cartItem =>
+            cartItem.name === item.name
+               ? { ...cartItem, quantity: cartItem.quantity + 1 }
+               : cartItem
          ));
       } else {
-         setCartItems([...cartItems, {...item, quantity: 1}]);
+         setCartItems([
+            ...cartItems,
+            {
+               ...item,
+               imageUrl: fullItem ? fullItem.imageUrl : "",  // add imageUrl here
+               quantity: 1
+            }
+         ]);
       }
    }
 

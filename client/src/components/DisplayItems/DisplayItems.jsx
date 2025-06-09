@@ -16,8 +16,8 @@ const DisplayItems = ({selectedCategory}) => {
 
    return (
       <div className='p-3'>
-         <div className="d-flex align-items-center mb-4" id='items-ct'>
-            <div className='coffee-title'>Coffee</div>
+         <div className="d-flex align-items-center mb-4 items-ctn" id='items-ct'>
+            <p className='coffee-title'>Coffee</p>
             <div style={{width: '780px', marginLeft: '50px'}} className="d-flex align-items-center">
                <SearchBox onSearch={setSearchText}/>
             </div>

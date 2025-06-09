@@ -38,25 +38,25 @@ const Menubar = () => {
                         <Link className={`nav-link ${isActive('/dashboard') ? 'fw-bold text-warning' : ''}`} to="/dashboard">Dashboard</Link>
                      </li>
                      <li className="nav-item">
-                        <Link className={`nav-link ${isActive('/explore') ? 'fw-bold text-warning' : ''}`} to="/explore">COFFEE</Link>
+                        <Link className={`nav-link ${isActive('/explore') ? 'fw-bold text-warning' : ''}`} to="/explore">Coffee</Link>
                      </li>
                      {
                         isOwner && (
                            <>
                               <li className="nav-item">
-                                 <Link className={`nav-link ${isActive('/items') ? 'fw-bold text-warning' : ''}`} to="/items">Items</Link>
+                                 <Link className={`nav-link ${isActive('/items') ? 'fw-bold text-warning' : ''}`} to="/items">Add Coffee</Link>
                               </li>
                               <li className="nav-item">
-                                 <Link className={`nav-link ${isActive('/category') ? 'fw-bold text-warning' : ''}`} to="/category">Category</Link>
+                                 <Link className={`nav-link ${isActive('/category') ? 'fw-bold text-warning' : ''}`} to="/category">Add Category</Link>
                               </li>
                               <li className="nav-item">
-                                 <Link className={`nav-link ${isActive('/employee') ? 'fw-bold text-warning' : ''}`} to="/employee">Staff</Link>
+                                 <Link className={`nav-link ${isActive('/employee') ? 'fw-bold text-warning' : ''}`} to="/employee">Account</Link>
                               </li>
                               <li className="nav-item">
-                                 <Link className={`nav-link ${isActive('/updateItem') ? 'fw-bold text-warning' : ''}`} to="/updateItem">Update Item</Link>
+                                 <Link className={`nav-link ${isActive('/updateItem') ? 'fw-bold text-warning' : ''}`} to="/updateItem">Edit Coffee</Link>
                               </li>
                               <li className="nav-item">
-                                 <Link className={`nav-link ${isActive('/updateCategory') ? 'fw-bold text-warning' : ''}`} to="/updateCategory">Update Category</Link>
+                                 <Link className={`nav-link ${isActive('/updateCategory') ? 'fw-bold text-warning' : ''}`} to="/updateCategory">Edit Category</Link>
                               </li>
                            </>
                         )

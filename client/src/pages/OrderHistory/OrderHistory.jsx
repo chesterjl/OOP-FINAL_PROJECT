@@ -70,7 +70,7 @@ const OrderHistory = () => {
                         <td>{order.customerName}</td>
                         <td>{order.orderType}</td>
                         <td>{formatItems(order.items)}</td>
-                        <td>&#8369;{order.grandTotal}</td>
+                        <td>₱{order.grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                         <td>
                            <span className="badge bg-black border border-white">
                               {order.paymentDetails?.status || "PENDING"}

@@ -13,13 +13,13 @@ const CartSummary = ({customerName, setCustomerName, orderType, setOrderType, mo
    const [orderDetails, setOrderDetails] = useState(null);
    const [showPopup, setShowPopup] = useState(false);
 
+   const isTaxApply = orderType == "For Here";
+
    const totalAmount = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
    const subTotal = totalAmount;
-   const tax = totalAmount * 0.05;
+   const tax = isTaxApply ? totalAmount * 0.05 : 0;
    const grandTotal = totalAmount + tax;
    
-   const isTaxApply = orderType == "For Here" ? true : false;
-   console.log("orderType:", orderType, "isTaxApply:", isTaxApply);
 
    const clearAll = () => {
       setCustomerName("");
@@ -79,6 +79,7 @@ const CartSummary = ({customerName, setCustomerName, orderType, setOrderType, mo
       } finally {
          setIsProcessing(false);
       }
+      
    }
 
    return (
@@ -111,12 +112,15 @@ const CartSummary = ({customerName, setCustomerName, orderType, setOrderType, mo
                Print bills
             </button>
          </div>
-         {
+         {  
+   
             showPopup && (
                <ReceiptPopUp 
                   orderDetails={orderDetails}
                   onClose={() => setShowPopup(false)}
                   onPrint={handlePrintReceipt}
+                  isTaxApply={orderDetails.orderType === "For Here"}
+                  
                />
             )
          }

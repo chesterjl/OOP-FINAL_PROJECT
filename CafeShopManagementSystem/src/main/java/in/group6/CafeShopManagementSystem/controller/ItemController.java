@@ -2,6 +2,7 @@ package in.group6.CafeShopManagementSystem.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import in.group6.CafeShopManagementSystem.entity.ItemEntity;
 import in.group6.CafeShopManagementSystem.io.ItemRequest;
 import in.group6.CafeShopManagementSystem.io.ItemResponse;
 import in.group6.CafeShopManagementSystem.service.ItemService;
@@ -69,4 +70,9 @@ public class ItemController {
         }
     }
 
+    @GetMapping("/total-items")
+    @ResponseStatus(HttpStatus.OK)
+    public Long getTotalItems() {
+        return itemService.getTotalItems();
+    }
 }

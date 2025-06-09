@@ -17,4 +17,5 @@ public interface CategoryService {
 
     CategoryResponse update(CategoryRequest request, MultipartFile file) throws IOException;
 
+    Long getTotalCategories();
 }

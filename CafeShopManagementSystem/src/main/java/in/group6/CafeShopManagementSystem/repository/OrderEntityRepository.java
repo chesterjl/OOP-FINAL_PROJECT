@@ -27,6 +27,4 @@ public interface OrderEntityRepository extends JpaRepository<OrderEntity, Long> 
     @Query("SELECT o FROM OrderEntity o ORDER BY o.createdAt DESC")
     List<OrderEntity> findRecentOrders(Pageable pageable);
 
-
-
 }

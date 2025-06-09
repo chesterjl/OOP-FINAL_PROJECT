@@ -11,16 +11,32 @@ const EmployeeList = ({employees, setEmployees}) => {
    );
 
    const deleteByEmployeeId = async (id) => {
-      try { 
-         const response = await deleteEmployee(id)
-         setEmployees(prevEmployees => prevEmployees.filter(employee => employee.employeeId !== id));
-         toast.success("Employee successfully deleted.");
+      try {
+         const employeeToDelete = employees.find(emp => emp.employeeId === id);
+
+         if (!employeeToDelete) {
+            toast.error("Employee not found.");
+            return;
+         }
+
+         await deleteEmployee(id);
+
+         setEmployees(prevEmployees => 
+            prevEmployees.filter(employee => employee.employeeId !== id)
+         );
+
+         if (employeeToDelete.role === "ROLE_EMPLOYEE") {
+            toast.success("Staff successfully deleted.");
+         } else {
+            toast.success("Owner successfully deleted.");
+         } 
+         
       } catch (error) {
-         console.error(error)
+         console.error(error);
          toast.error("Failed to delete the employee.");
       }
-   }
-   
+   };
+      
    return (
       <div className="category-list-container" style={{height: '100vh', overflowY: 'auto', overflowX: 'hidden'}}>
          <div className="row pe-2">
@@ -42,7 +58,8 @@ const EmployeeList = ({employees, setEmployees}) => {
                            <div className="d-flex align-items-center">
                               <div className="flex-grow-1">
                                  <h5 className="mb-1 fnt-clr">{employee.firstName} {employee.lastName} </h5>
-                                 <p className="mb-0 fnt-clr">{employee.email}</p>
+                                   <p className="mb-0 fnt-clr">Email: {employee.email}</p>
+                                 <p className="mb-0 fnt-clr">Role: {employee.role == "ROLE_EMPLOYEE" ? "Staff" : "Owner"}</p>
                               </div>
                               <div>
                                     <button className="btn btn-dark btn-sm" onClick={() => deleteByEmployeeId(employee.employeeId)}>

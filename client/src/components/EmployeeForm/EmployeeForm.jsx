@@ -10,7 +10,7 @@ const EmployeeForm = ({setEmployees}) => {
       lastName: "",
       email: "",
       password: "",
-      role: "ROLE_EMPLOYEE"
+      role: ""
    });
 
    const onChangeHandler = (e) => { 
@@ -26,13 +26,17 @@ const EmployeeForm = ({setEmployees}) => {
       try {
          const response = await addEmployee(data);
          setEmployees((prevEmployees) => [...prevEmployees, response.data]);
-         toast.success("Employee successfully added.");
+         if (data.role === "ROLE_EMPLOYEE") {
+            toast.success("Staff successfully added.");
+         } else {
+            toast.success("Owner successfully added.");
+         } 
          setData({
             firstName: "",
             lastName: "",
             email: "",
             password: "",
-            role: "ROLE_EMPLOYEE"
+            role: ""
          });
       } catch (error) {
          console.error(error);
@@ -91,6 +95,14 @@ const EmployeeForm = ({setEmployees}) => {
                            onChange={onChangeHandler}
                            value={data.password}
                            required/>
+                     </div>
+                     <div className="mb-3">
+                        <label htmlFor="role" className="form-label">Role</label>
+                        <select name="role" id="role" className="form-control" onChange={onChangeHandler} value={data.role}>
+                           <option value="">Select account type</option>
+                           <option value="ROLE_EMPLOYEE">STAFF</option>
+                           <option value="ROLE_OWNER">OWNER</option>
+                        </select>
                      </div>
                      <button type="submit" className="btn btn-dark w-100" disabled={loading}>
                         {loading ? "Loading..." : "Save"}

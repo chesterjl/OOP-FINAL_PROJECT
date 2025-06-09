@@ -8,9 +8,6 @@ const ManageCategory = () => {
          <div className="left-column">
             <CategoryForm />
          </div>
-         <div className="right-column">
-            <CategoryList />
-         </div>
       </div>
    );
 }

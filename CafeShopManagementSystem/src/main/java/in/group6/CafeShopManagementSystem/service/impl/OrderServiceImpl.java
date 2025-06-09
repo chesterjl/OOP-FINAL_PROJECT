@@ -34,7 +34,6 @@ public class OrderServiceImpl implements OrderService {
                                             .map(this::convertToOrderItemEntity)
                                             .collect(Collectors.toList());
         newOrder.setItems(orderItems);
-
         newOrder = orderEntityRepository.save(newOrder);
         return convertToResponse(newOrder);
     }
@@ -47,7 +46,6 @@ public class OrderServiceImpl implements OrderService {
                 .quantity(orderItemRequest.getQuantity())
                 .build();
     }
-
 
     private OrderResponse convertToResponse(OrderEntity newOrder) {
         return OrderResponse.builder()
@@ -116,7 +114,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderResponse> findRecentOrders() {
-        return orderEntityRepository.findRecentOrders(PageRequest.of(0, 5))
+        return orderEntityRepository.findRecentOrders(PageRequest.of(0, 8))
                 .stream()
                 .map(orderEntity -> convertToResponse(orderEntity))
                 .collect(Collectors.toList());

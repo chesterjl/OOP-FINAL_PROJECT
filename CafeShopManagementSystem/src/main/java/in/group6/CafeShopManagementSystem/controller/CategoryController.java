@@ -70,4 +70,10 @@ public class CategoryController {
         }
 
     }
+
+    @GetMapping("/total-categories")
+    @ResponseStatus(HttpStatus.OK)
+    public Long getTotalCategories() {
+        return categoryService.getTotalCategories();
+    }
 }

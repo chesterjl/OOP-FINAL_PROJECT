@@ -1,10 +1,7 @@
 import './ReceiptPopUp.css';
 import './Print.css'; 
 
-const ReceiptPopUp = ({ orderDetails, onClose, onPrint }) => { 
-   
-   const isTaxApply = orderDetails.orderType == "For here" ? true : false;
-   
+const ReceiptPopUp = ({ orderDetails, onClose, onPrint, isTaxApply}) => { 
    return (
       <div className="receipt-popup-overlay text-dark">
          <div className="receipt-popup rounded shadow-sm p-4 bg-white">
@@ -43,7 +40,7 @@ const ReceiptPopUp = ({ orderDetails, onClose, onPrint }) => {
                </div>
                {isTaxApply && (
                   <div className="d-flex justify-content-between mb-2">
-                     <span><strong>Tax (10%):</strong></span>
+                     <span><strong>Tax (5%):</strong></span>
                      <span>&#8369;{orderDetails.tax.toFixed(2)}</span>
                   </div>
                )}

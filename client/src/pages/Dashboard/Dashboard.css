@@ -28,56 +28,111 @@ body, html {
     font-size: 1.5rem;
     letter-spacing: 0.3px;
 }
-
 .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 16px;
     margin-bottom: 32px;
+    justify-content: space-between;
 }
 
 .stats-card {
+    position: relative;
+    flex: 1 1 calc(25% - 12px);
     background: #ffffff;
     border-radius: 16px;
-    padding: 20px;
+    padding: 24px 20px 20px;
     display: flex;
-    align-items: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex-direction: column;
+    justify-content: space-between;
     border: 1px solid #eaeaea;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    min-width: 260px;
+    transition: all 0.3s ease;
 }
 
 .stats-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-.stats-icon {
-    font-size: 2.4rem;
-    margin-right: 16px;
+.stats-icon.top-right {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #1a1a1a;
     color: white;
-    width: 64px;
-    height: 64px;
-    border-radius: 12px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #1a1a1a;
 }
 
 .stats-content h3 {
-    margin: 0 0 4px 0;
-    color: #1a1a1a;
-    font-size: 1rem;
+    margin: 0 0 8px;
+    font-size: 0.9rem;
     font-weight: 600;
+    color: rgb(85, 85, 85);
 }
 
-.stats-content p {
-    margin: 0;
-    font-size: 1.6rem;
+.stats-value {
+    font-size: 1.8rem;
     font-weight: 700;
     color: #1a1a1a;
+    margin-bottom: 12px;
 }
+
+.stats-chart {
+    width: 100%;
+    height: 40px;
+    border-radius: 6px;
+    background: repeating-linear-gradient(
+        to right,
+        currentColor 0 5%,
+        transparent 5% 10%
+    );
+    margin-bottom: 8px;
+    opacity: 0.3;
+}
+
+.stats-percent {
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Color Themes */
+.green {
+    color: #4caf50;
+}
+.yellow {
+    color: #ffb300;
+}
+.blue {
+    color: #1e88e5;
+}
+.red {
+    color: #ef5350;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .stats-card {
+        flex: 1 1 calc(50% - 12px);
+    }
+}
+
+@media (max-width: 600px) {
+    .stats-card {
+        flex: 1 1 100%;
+    }
+}
+
 
 .recent-orders-card {
     background-color: #ffffff;

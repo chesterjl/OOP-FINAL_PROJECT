@@ -61,9 +61,15 @@ const ItemForm = () => {
    return (
       <div className="items-form-container" style={{height: '100vh', overflowY: 'auto', overflowX: 'hidden'}}>
          <div className="mx-2 mt-2">
+         <h2 className="text-black mb-4">
+                  Add New Cofee
+         </h2>
             <div className="row">
                <div className="card col-md-12 form-container no-shadow">
                   <div className="card-body">
+                     <div className="mb-4">
+                        General Information
+                     </div>
                      <form onSubmit={onSubmitHandler}>
                         <div className="mb-3">
                            <label htmlFor="image" className="form-label">
@@ -77,7 +83,7 @@ const ItemForm = () => {
                               name="name"
                               id="name"
                               className="form-control"
-                              placeholder="Item Name"
+                              placeholder="Coffee Name"
                               onChange={onChangeHandler}
                               value={data.name}
                               required
@@ -88,7 +94,7 @@ const ItemForm = () => {
                               Category
                            </label>
                            <select name="categoryId" id="category" className="form-control" onChange={onChangeHandler} value={data.categoryId} required>
-                              <option value="">-- SELECT CATEGORY --</option>
+                              <option value="">Select type (e.g., Latte, Macchiato, Espresso)</option>
                               {categories.map((category, index) => (
                                  <option key={index} value={category.categoryId}>{category.name}</option>
 

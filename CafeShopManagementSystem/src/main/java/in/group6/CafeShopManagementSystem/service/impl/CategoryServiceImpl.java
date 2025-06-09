@@ -76,6 +76,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     }
 
+    @Override
+    public Long getTotalCategories() {
+        return categoryRepository.totalCategory();
+    }
 
     @Override
     public List<CategoryResponse> read() {

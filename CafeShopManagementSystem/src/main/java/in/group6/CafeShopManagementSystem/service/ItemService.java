@@ -17,4 +17,6 @@ public interface ItemService {
 
     ItemResponse update(ItemRequest request, MultipartFile file) throws IOException;
 
+    Long getTotalItems();
+
 }
